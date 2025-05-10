@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ModeToggle } from "./ModeToggle";
 
@@ -12,9 +11,6 @@ function Navbar() {
     </Link>
   </div>
   <ul className="flex gap-15 absolute left-1/2 transform -translate-x-1/2 list-none p-0 m-0 justify-center items-center">
-    <li className="border-transparent hover:border-blue-200 border-b-2 hover:text-blue-200 transition duration-300 ease-in-out font-semibold">
-      <Link href="/CurrencyConverter " target="_blank">CURRENCY CONVERTER</Link>
-    </li>
     <li className="border-transparent hover:border-blue-200 border-b-2 hover:text-blue-200 transition duration-300 ease-in-out font-semibold">
       <Link href="/news">NEWS</Link>
     </li>
