@@ -4,10 +4,7 @@ import Navbar from "@/components/Navbar";
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Metadata } from "next";
 
 interface News {
   id: string;
@@ -42,7 +39,7 @@ function News() {
       setLoading(false);
     } catch (err) {
       console.error("Error fetching data:", err);
-      setError(err);
+      setError(err as Error);
       setLoading(false);
     }
   };
