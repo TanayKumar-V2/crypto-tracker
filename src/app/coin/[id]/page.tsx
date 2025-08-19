@@ -7,7 +7,6 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import { Line } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js";
-import Image from "next/image"; // Import the Image component
 
 // Register all necessary Chart.js components
 Chart.register(...registerables);
@@ -55,7 +54,7 @@ export default function CoinDetails() {
         setLoading(false);
       } catch (err) {
         console.error("Error fetching coin data:", err);
-        // Fix for the 'Unexpected any' error by specifying the error type
+        // Fix for the 'Unexpected any' error
         setError("Error fetching coin data: " + (err as Error).message);
         setLoading(false);
       }
@@ -72,13 +71,14 @@ export default function CoinDetails() {
         <Navbar />
         <div className="flex items-center justify-center min-h-screen">
           <p className="text-3xl text-center mb-90 animate-bounce">LOADING COIN DETAILS...</p>
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="https://storage.needpix.com/rsynced_images/bitcoin-225079_1280.png"
             alt="Coin img"
             height={200}
             width={200}
-            className="animate-spin absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-20"
-          />
+            className="animate-spin absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-20 "
+          ></img>
         </div>
       </>
     );
@@ -95,6 +95,8 @@ export default function CoinDetails() {
     );
   }
 
+  // Simulate hourly data for the 1-day change.
+  // For demonstration, we assume a linear progression from 0 to coin.priceChange1d over 24 hours.
   const oneDayLabels = Array.from({ length: 24 }, (_, i) => `${i}:00`);
   const oneDayDataPoints = Array.from({ length: 24 }, (_, i) => {
     return (coin.priceChange1d / 23) * i;
@@ -114,6 +116,8 @@ export default function CoinDetails() {
     ],
   };
 
+  // Simulate daily data for the 1-week change.
+  // For demonstration, we assume a linear progression from 0 to coin.priceChange1w over 7 days.
   const oneWeekLabels = Array.from({ length: 7 }, (_, i) => `Day ${i + 1}`);
   const oneWeekDataPoints = Array.from({ length: 7 }, (_, i) => {
     return (coin.priceChange1w / 6) * i;
@@ -158,7 +162,8 @@ export default function CoinDetails() {
           &larr; Back to Coins
         </Link>
         <div className="flex items-center gap-4 mb-6">
-          <Image src={coin.icon} alt={coin.name} className="w-10 h-10" width={40} height={40} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={coin.icon} alt={coin.name} className="w-10 h-10" />
           <h1 className="text-3xl font-bold">
             {coin.name} ({coin.symbol})
           </h1>

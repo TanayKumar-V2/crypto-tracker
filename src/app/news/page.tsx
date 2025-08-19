@@ -4,7 +4,6 @@ import Navbar from "@/components/Navbar";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import Image from "next/image"; // Import the Image component
 
 interface News {
   id: string;
@@ -42,7 +41,7 @@ function News() {
   };
 
   useEffect(() => {
-    fetchNews();
+        fetchNews();
   }, []);
 
   if (error) {
@@ -58,17 +57,18 @@ function News() {
       <Navbar />
       <div suppressHydrationWarning>
         {loading ? (
-          <div className="relative min-h-[200px] flex items-center justify-center">
+          <div>
             <p className="text-3xl text-center mt-15 animate-bounce">
               LOADING NEWS FROM ALL AROUND THE WORLD
             </p>
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="https://openclipart.org/image/2000px/311354"
               height={100}
               width={100}
               alt="spinner"
               className="animate-spin absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-10"
-            />
+            ></img>
           </div>
         ) : (
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-5">
@@ -77,17 +77,14 @@ function News() {
                 key={news.id}
                 className="flex flex-col rounded-lg shadow-md transition transform hover:scale-105 duration-300"
               >
-                {/* Image container with fixed aspect ratio */}
                 <div className="w-full relative aspect-video">
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={news.imgUrl}
                     alt="News"
                     className="absolute inset-0 w-full h-full object-cover rounded-t-lg"
-                    layout="fill" // Use layout="fill" to make the image fill the parent container
-                    objectFit="cover"
                   />
                 </div>
-                {/* Content container */}
                 <div className="p-4">
                   <p className="text-center text-sm font-medium">
                     {news.title}{" "}

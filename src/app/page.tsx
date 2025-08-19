@@ -72,7 +72,8 @@ export default function Home() {
         {loading ? (
           <div className="relative min-h-[200px] flex items-center justify-center">
             <span className="text-center text-3xl ">Loading...</span>
-            <Image
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
               src="https://storage.needpix.com/rsynced_images/bitcoin-225079_1280.png"
               alt="spinner"
               className="animate-spin absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-20"
@@ -97,6 +98,7 @@ export default function Home() {
                   <TableRow key={coin.id}>
                     <TableCell className="p-6 text-2xl">
                       <div className="flex items-center gap-2">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={coin.icon}
                           alt={coin.name}
