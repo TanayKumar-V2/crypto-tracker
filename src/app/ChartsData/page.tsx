@@ -16,7 +16,7 @@ interface Coins {
 }
 
 function ChartComp() {
-  const [coins, setCoins] = useState<Coin[]>([]);
+  const [coins, setCoins] = useState<Coins[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -36,7 +36,7 @@ function ChartComp() {
       setLoading(false);
     } catch (err) {
       console.error("Error fetching data:", err);
-      setError(err);
+      setError(err as Error);
       setLoading(false);
     }
   };
@@ -87,7 +87,7 @@ function ChartComp() {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { display: true, position: "top" },
+      legend: { display: true, position: "top" as const },
     },
     scales: {
       x: {
