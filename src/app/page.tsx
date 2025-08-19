@@ -23,8 +23,8 @@ interface Coin {
   price: number;
   marketCap: number;
   priceChange1h: number;
-  redditUrl: string;
-  twitterUrl: string;
+  redditUrl: string | null;
+  twitterUrl: string | null;
 }
 
 export default function Home() {
@@ -81,7 +81,6 @@ export default function Home() {
             />
           </div>
         ) : (
-          // Wrap the table for horizontal scrolling on small screens
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
@@ -127,20 +126,24 @@ export default function Home() {
                       {coin.priceChange1h}%
                     </TableCell>
                     <TableCell className="flex gap-3">
-                      <Button variant="outline">
-                        <Link
-                          href={coin.redditUrl}
-                          target="_blank"
-                          className="text-orange-500"
-                        >
-                          Reddit
-                        </Link>
-                      </Button>
-                      <Button variant="secondary">
-                        <Link href={coin.twitterUrl} target="_blank">
-                          Twitter
-                        </Link>
-                      </Button>
+                      {coin.redditUrl && (
+                        <Button variant="outline">
+                          <Link
+                            href={coin.redditUrl}
+                            target="_blank"
+                            className="text-orange-500"
+                          >
+                            Reddit
+                          </Link>
+                        </Button>
+                      )}
+                      {coin.twitterUrl && (
+                        <Button variant="secondary">
+                          <Link href={coin.twitterUrl} target="_blank">
+                            Twitter
+                          </Link>
+                        </Button>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
