@@ -1,10 +1,10 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image"; // Import the Image component
 
 interface News {
   id: string;
@@ -14,13 +14,10 @@ interface News {
   link: string;
 }
 
-
-
 function News() {
   const [news, setNews] = useState<News[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
-
 
   const fetchNews = async () => {
     setLoading(true);
@@ -61,17 +58,17 @@ function News() {
       <Navbar />
       <div suppressHydrationWarning>
         {loading ? (
-          <div>
+          <div className="relative min-h-[200px] flex items-center justify-center">
             <p className="text-3xl text-center mt-15 animate-bounce">
               LOADING NEWS FROM ALL AROUND THE WORLD
             </p>
-            <img
+            <Image
               src="https://openclipart.org/image/2000px/311354"
               height={100}
               width={100}
               alt="spinner"
-              className="animate-spin absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-10  "
-            ></img>
+              className="animate-spin absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-10"
+            />
           </div>
         ) : (
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-5">
@@ -82,10 +79,12 @@ function News() {
               >
                 {/* Image container with fixed aspect ratio */}
                 <div className="w-full relative aspect-video">
-                  <img
+                  <Image
                     src={news.imgUrl}
                     alt="News"
                     className="absolute inset-0 w-full h-full object-cover rounded-t-lg"
+                    layout="fill" // Use layout="fill" to make the image fill the parent container
+                    objectFit="cover"
                   />
                 </div>
                 {/* Content container */}

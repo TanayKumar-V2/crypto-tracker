@@ -1,10 +1,11 @@
 "use client"
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart, registerables } from "chart.js"
 import Navbar from "@/components/Navbar";
+import Image from "next/image";
 
 Chart.register(...registerables);
 
@@ -29,7 +30,8 @@ function ChartComp() {
     },
   };
 
-  const fetchHistory = async () => {
+  const fetchHistory = useCallback(async () => {
+    setLoading(true);
     try {
       const res = await axios.request(heads);
       setCoins(res.data.result);
@@ -39,11 +41,11 @@ function ChartComp() {
       setError(err as Error);
       setLoading(false);
     }
-  };
+  }, [heads]); // Added heads as a dependency to useCallback
 
   useEffect(() => {
     fetchHistory();
-  }, []);
+  }, [fetchHistory]); // Fixed the missing dependency warning
 
   if (error) {
     return (
@@ -104,8 +106,15 @@ function ChartComp() {
       <Navbar />
       <div>
         {loading ? (
-          <div>
+          <div className="flex items-center justify-center min-h-screen">
             <p className="text-3xl text-center">Loading the Charts</p>
+            <Image
+              src="https://storage.needpix.com/rsynced_images/bitcoin-225079_1280.png"
+              alt="spinner"
+              className="animate-spin absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mt-20"
+              height={70}
+              width={70}
+            />
           </div>
         ) : (
           <div className="p-5">
