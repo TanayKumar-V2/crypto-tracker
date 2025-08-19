@@ -44,7 +44,7 @@ export default function CoinDetails() {
         );
         // Find the coin by id from the fetched list (case-insensitive match)
         const foundCoin = res.data.result.find(
-          (coin: CoinDetail) => coin.id.toLowerCase() === id.toLowerCase()
+          (coin: CoinDetail) => coin.id.toLowerCase() === (typeof id === "string" ? id.toLowerCase() : "")
         );
         if (!foundCoin) {
           setError("Coin not found");
@@ -133,12 +133,14 @@ export default function CoinDetails() {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: { position: "top" },
+      legend: { position: 'top' as const },
     },
     scales: {
       y: {
         ticks: {
-          callback: (value: number) => `${value}%`,
+          callback: function (tickValue: string | number) {
+            return `${tickValue}%`;
+          },
         },
       },
     },
